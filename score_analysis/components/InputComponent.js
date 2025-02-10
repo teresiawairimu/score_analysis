@@ -5,13 +5,11 @@ import {View, Text, TextInput, StyleSheet} from 'react-native';
 const InputComponent = (props) => {
   const [name, setName] = useState('')
   const [scores, setScores] = useState(['', '', '', '', ''])
-  console.log(scores)
   const handleChange = (index, value) => {
     const numValue = Number(value)
     const newScores = [...scores];
     newScores[index] = numValue < 0 ? 0: value > 100 ? 0: numValue;
     setScores(newScores);
-    console.log("newscores", newScores)
     props.dispatch({type: 'update_score', payload: newScores})
 
   }
@@ -94,7 +92,6 @@ const styles = StyleSheet.create({
     borderRadius: 10
 
   }
-
-})
+});
 
 export default InputComponent;

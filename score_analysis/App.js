@@ -1,13 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View} from 'react-native';
 import React, { useReducer } from 'react';
 import InputComponent from './components/InputComponent';
 import DisplayComponent from './components/DisplayComponent';
 
 
 function analysisReducer(state, action) {
-  console.log('current state:', state);
-  console.log('action', action);
   switch (action.type) {
     case 'update_score':
       return { ...state, scores: action.payload};
@@ -15,9 +12,10 @@ function analysisReducer(state, action) {
       const minValue = Math.min(...state.scores);
       console.log('min value:', minValue);
       return {...state, min_score: minValue.toString()};
-      {/*{ ...state, min_score: Math.min(...state.scores)};*/}
     case 'compute_max':
-      return { ...state, max_score: Math.max(...state.scores)};
+      const maxValue = Math.max(...state.scores);
+      console.log('max value', maxValue);
+      return { ...state, max_score: maxValue.toString()};
     case 'compute_avg':
       return { ...state, avg_score: (state.scores.reduce((a, b) => a + b, 0) / 5).toFixed(2)};
     case 'compute_grade':
@@ -58,17 +56,15 @@ export default function App() {
         </View>
       </View>
       <DisplayComponent state={state} />
-      <StatusBar style="auto" />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    /*flex: 1,*/
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   buttons: {
     flexDirection: 'row',
